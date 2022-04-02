@@ -18,15 +18,19 @@ public class FoodController {
     private final FoodService foodService;
 
     @PostMapping("/restaurant/{restaurantId}/food/register")
-    public Food createFood(@RequestBody FoodDto foodDto) {
+    public void createFood(@PathVariable Long restaurantId, @RequestBody  List<FoodDto> foodDto) {
 
-        return foodService.registerFood(foodDto);
+        foodService.registerFood(restaurantId, foodDto);
     }
 
     @GetMapping("/restaurant/{restaurantId}/foods")
-    public List<Food> getFood(@PathVariable Long restaurantId) {
-        return foodRepository.findByrestaurantId(restaurantId);
+    public  List<Food> getFood(@PathVariable Long restaurantId) {
+        return foodRepository.findAllByRestaurantId(restaurantId);
     }
 }
+//    @GetMapping("/api/reply/{postId}")
+//    public List<Reply> getReply(@PathVariable Long postId) {
+//        return ReplyService.getReply(postId);
+//    }
 
 

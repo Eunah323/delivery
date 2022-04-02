@@ -24,10 +24,10 @@ public class Food {
     @Column(nullable = false)
     private int price;
 
-    public Food(Long restaurantId, String name, int price) {
+    public Food(Long restaurantId, FoodDto foodDto) {
         this.restaurantId = restaurantId;
-        this.name = name;
-        this.price = price;
+        this.name = foodDto.getName();
+        this.price = foodDto.getPrice();
     }
 
     public Food(FoodDto foodDto) {
