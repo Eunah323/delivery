@@ -7,5 +7,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface RestaurantRepository extends JpaRepository<Restaurant, Long> {
-    Optional<Restaurant> findByName(String name);
+//    Optional<Restaurant> findByName(String name);
+//    List<Restaurant> findAll();
+
 }
