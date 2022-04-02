@@ -6,8 +6,6 @@ import com.sparta.delivery.Model.Restaurant;
 import com.sparta.delivery.Repository.RestaurantRepository;
 import com.sparta.delivery.Service.RestaurantService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
