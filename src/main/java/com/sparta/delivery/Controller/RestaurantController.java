@@ -13,7 +13,6 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
-//가게주인이 가게정보를 등록하는 컨트롤러
 public class RestaurantController {
 
 
@@ -28,7 +27,8 @@ public class RestaurantController {
     }
 
         @GetMapping("/restaurants")
-        public List<Restaurant> getRestaurant () {return restaurantRepository.findAll();}
+        public List<Restaurant> getRestaurant () {
+        return restaurantRepository.findAll();}
 
 
     }
