@@ -20,7 +20,7 @@ public class FoodController {
     @PostMapping("/restaurant/{restaurantId}/food/register")
     public void createFood(@PathVariable Long restaurantId, @RequestBody  List<FoodDto> foodDto) {
 
-        foodService.registerFood(restaurantId, foodDto);
+       foodService.registerFood(restaurantId, foodDto);
     }
 
     @GetMapping("/restaurant/{restaurantId}/foods")
@@ -28,9 +28,6 @@ public class FoodController {
         return foodRepository.findAllByRestaurantId(restaurantId);
     }
 }
-//    @GetMapping("/api/reply/{postId}")
-//    public List<Reply> getReply(@PathVariable Long postId) {
-//        return ReplyService.getReply(postId);
-//    }
+
 
 
