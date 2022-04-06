@@ -1,6 +1,5 @@
 package com.sparta.delivery.Model;
 
-import com.sparta.delivery.DTO.FoodDto;
 import com.sparta.delivery.DTO.FoodOrderDto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -23,7 +22,7 @@ public class FoodOrder {
 
     @ManyToOne
     @JoinColumn(name = "FOOD_ORDERS")
-    private Order order;
+    private MyOrder myOrder;
 
     public FoodOrder(FoodOrderDto orderDto) {
 

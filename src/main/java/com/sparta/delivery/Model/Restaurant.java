@@ -27,9 +27,6 @@ public class Restaurant {
     @Column(nullable = false)
     private int deliveryFee;
 
-    @OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL)
-    @Column
-    private List<Order> orders;
 
     public Restaurant(String name, int minOrderPrice, int deliveryFee) {
         this.name = name;

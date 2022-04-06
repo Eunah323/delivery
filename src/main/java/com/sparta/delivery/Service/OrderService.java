@@ -5,7 +5,7 @@ import com.sparta.delivery.DTO.FoodOrderRequestDto;
 import com.sparta.delivery.DTO.OrderRequestDto;
 import com.sparta.delivery.Model.Food;
 import com.sparta.delivery.Model.FoodOrder;
-import com.sparta.delivery.Model.Order;
+import com.sparta.delivery.Model.MyOrder;
 import com.sparta.delivery.Model.Restaurant;
 import com.sparta.delivery.Repository.FoodOrderRepository;
 import com.sparta.delivery.Repository.FoodRepository;
@@ -14,11 +14,9 @@ import com.sparta.delivery.Repository.RestaurantRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @RequiredArgsConstructor
 @Service
@@ -30,7 +28,7 @@ public class OrderService {
 
 
     @Transactional
-    public Order registerOrder(OrderRequestDto orderDto) {
+    public MyOrder registerOrder(OrderRequestDto orderDto) {
         Restaurant restaurant = restaurantRepository.findById(orderDto.getRestaurantId()).orElseThrow(
                 () -> new IllegalArgumentException(""));
 
@@ -39,6 +37,7 @@ public class OrderService {
 
 
         List<FoodOrder> foodOrders = new ArrayList<>();
+
         Long restaurantId = orderDto.getRestaurantId();
         String restaurantName = restaurant.getName();
         int deliveryFee = restaurant.getDeliveryFee();
@@ -48,14 +47,12 @@ public class OrderService {
             Food food = foodRepository.findByIdAndRestaurantId(foodOrderRequestDto.getId(), restaurantId).orElseThrow(
                     () -> new IllegalArgumentException(""));
             String name = food.getName();
-            int quantity = orderDto.getFoods().get(i).getQuantity();
             int price = food.getPrice();
+            int quantity = foodOrderRequestDto.getQuantity();
             totalPrice += quantity * price;
-            if (totalPrice < minOrderPrice) {
-                throw new IllegalArgumentException("최소주문금액 이상 주문해주세요.");
-            }
+
             if (quantity < 1 || quantity > 100) {
-                throw new IllegalArgumentException("주문가능수량은 1개~100개 입니다.");
+                throw new NullPointerException("주문가능수량은 1개~100개 입니다.");
             }
 
             FoodOrderDto foodOrderDto = new FoodOrderDto();
@@ -68,11 +65,14 @@ public class OrderService {
             foodOrderRepository.save(foodOrder);
             foodOrders.add(foodOrder);
         }
+        if (totalPrice < minOrderPrice) {
+            throw new NullPointerException("최소주문금액 이상 주문해주세요.");
+        }
         totalPrice += deliveryFee;
 
-        Order order = new Order(restaurantName, foodOrders, deliveryFee, totalPrice);
-        orderRepository.save(order);
-        System.out.println(order);
-        return order;
+        MyOrder myOrder = new MyOrder(restaurantName, foodOrders, deliveryFee, totalPrice);
+        orderRepository.save(myOrder);
+        System.out.println(myOrder);
+        return myOrder;
     }
 }
