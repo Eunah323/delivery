@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Getter
 @NoArgsConstructor // 기본 생성자를 만들어줍니다.
@@ -25,6 +26,7 @@ public class Restaurant {
 
     @Column(nullable = false)
     private int deliveryFee;
+
 
     public Restaurant(String name, int minOrderPrice, int deliveryFee) {
         this.name = name;
